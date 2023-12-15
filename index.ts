@@ -13,9 +13,9 @@ const bot = new TelegramBot(TOKEN);
 
 const app = express();
 
-app.use(express.static("../public"));
+app.use(express.static(path.join(__dirname, "../public")));
 app.set("view engine", "ejs");
-app.set("../views", path.join(__dirname, "views"));
+app.set("views", path.join(__dirname, "../views"));
 
 bot.setWebHook(`${URL}/bot${TOKEN}`);
 
