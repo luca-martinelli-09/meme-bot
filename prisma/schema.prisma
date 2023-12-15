@@ -1,0 +1,40 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Meme {
+  MemeID      String        @id
+  Name        String
+  ImagePath   String        @default("memes/")
+  Citato      Int
+  MemeTrigger MemeTrigger[]
+
+  @@map("Memes")
+}
+
+model Group {
+  GroupID      BigInt   @id
+  GroupName    String?
+  GroupLink    String?
+  RegisterTime DateTime @default(now())
+  MemeCitati   Int      @default(0)
+
+  @@map("Groups")
+}
+
+model MemeTrigger {
+  MemeTrigger String
+  MemeID      String
+  Meme        Meme   @relation(fields: [MemeID], references: [MemeID])
+
+  @@id([MemeTrigger, MemeID])
+  @@map("MemeTriggers")
+}

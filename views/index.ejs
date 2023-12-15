@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Castoro Catarifrangente | Bot</title>
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap"
+    rel="stylesheet">
+
+  <link rel="icon" href="favicon.png" />
+
+  <style>
+    body {
+      text-align: center;
+      font-family: 'Titillium Web', sans-serif;
+      margin: 0;
+      padding: 10px;
+      background: #111;
+      color: #eee;
+    }
+
+    .meme img {
+      width: 100%;
+      border-radius: 20px;
+      border: 4px solid;
+    }
+
+    .meme-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .meme {
+      max-width: 400px;
+      margin: 10px;
+      text-align: left;
+    }
+
+    .meme p {
+      margin-top: 5px;
+      font-size: 16px;
+    }
+
+    .meme p strong {
+      font-size: 20px;
+    }
+
+    nav {
+      margin-bottom: 30px;
+    }
+
+    a {
+      font-weight: bold;
+      text-decoration: none;
+      color: #ff8e71 !important;
+    }
+
+    nav a {
+      font-size: 18px;
+      margin: 0px 10px;
+    }
+
+    footer {
+      margin: 30px 0px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Castoro Catarifrangente Bot</h1>
+  <p>
+    Aggiungi il bot a un gruppo su Telegram e ogni volta che citerai un meme il bot invierà l'immagine corrispondente.
+    Funziona anche nella modalità inline per inviare il meme direttamente.<br>
+    Dove trovarlo? Cerca su Telegram <a href="https://t.me/cataricastori_bot" target="_blank">@CatariCastori_bot</a>
+  </p>
+
+  <h2>Meme inseriti (<%= totalMemes %>)</h2>
+
+  <nav>
+    <a href="<%= process.env.BASE_URL %>">Tutti i meme</a> | <a href="<%=process.env.BASE_URL %>?noTrigger=1">Meme senza
+      trigger nel bot</a>
+  </nav>
+
+  <div class="meme-container">
+    <% memes.forEach(function(meme){ %>
+      <div class="meme" id="<%= meme.MemeID %>">
+        <img src="<%= process.env.BASE_URL + '/' + meme.ImagePath %>" alt="<%= meme.Name %>">
+        <p><strong>
+            <%= meme.Name %>
+          </strong><br>citato <%= meme.Citato %>
+            <%= meme.Citato===1 ? 'volta' :'volte' %>
+        </p>
+      </div>
+      <% }); %>
+  </div>
+
+  <footer>
+    Realizzato da <a href="https://lucamartinelli.eu.org/">Luca Martinelli</a>
+  </footer>
+</body>
+
+</html>
